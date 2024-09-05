@@ -1,25 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isMobile, setIsMobile] = useState(false);
-
-  // Function to handle screen resizing
-  const handleResize = () => {
-    setIsMobile(window.innerWidth <= 1024);
-  };
-
-  useEffect(() => {
-    // Set initial value based on screen size
-    handleResize();
-    
-    // Add event listener to handle window resize
-    window.addEventListener('resize', handleResize);
-    
-    // Cleanup the event listener on component unmount
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
 
   const handleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -52,7 +35,7 @@ const Navbar = () => {
             )}
           </button>
         </div>
-        <ul className={`lg:flex space-x-8 items-center ${isMenuOpen && isMobile ? 'block' : 'hidden'} lg:block absolute lg:static top-16 left-0 right-0 bg-white lg:bg-transparent p-5 lg:p-0`}>
+        <ul className={`lg:flex space-x-8 items-center ${isMenuOpen ? 'block' : 'hidden'} lg:block absolute lg:static top-16 left-0 right-0 bg-white lg:bg-transparent p-5 lg:p-0`}>
           {navItems.map(({ path, title }) => (
             <li key={path} className="text-base mb-3 lg:mb-0">
               <NavLink
@@ -66,9 +49,9 @@ const Navbar = () => {
             </li>
           ))}
         </ul>
-        <div className={`mt-4 lg:mt-0 lg:flex items-center space-x-5 ${isMenuOpen && isMobile ? 'block' : 'hidden'} lg:block`}>
+        <div className={`mt-4 lg:mt-0 lg:flex items-center space-x-5 ${isMenuOpen ? 'block' : 'hidden'} lg:block`}>
           <Link to="/login">
-            <button className="bg-blue text-white px-3 py-2 rounded-md hover:bg-blue-600 transition">Login</button>
+            <button className="bg-blue-500 text-white px-3 py-2 rounded-md hover:bg-blue-600 transition">Login</button>
           </Link>
           <Link to="/signup">
             <button className="bg-green-500 text-white px-3 py-2 rounded-md hover:bg-green-600 transition">Sign Up</button>
