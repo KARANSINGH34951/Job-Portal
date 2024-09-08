@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import Banners from '../Components/Banners'
 import Cards from '../Components/Cards';
 import Jobs from './Jobs';
+import Slidebar from '../Components/Slidebar';
 
 const Home = () => {
   const [selectedCategory, setSelectedCategory] = useState(null);
@@ -40,11 +41,16 @@ const Home = () => {
 
     // Filtering by category
     if (selected) {
-      filterJobs = filterJobs.filter(({ jobLocation, maxPrice, experienceLevel, salaryType, employmentType }) =>
+      filterJobs = filterJobs.filter(({ jobLocation, maxPrice, experienceLevel, companyName, employmentType,companyLogo ,postingDate,description}) =>
         jobLocation.toLowerCase() === selected.toLowerCase() ||
         parseInt(maxPrice) === parseInt(selected) ||
         experienceLevel.toLowerCase() === selected.toLowerCase() ||
-        employmentType.toLowerCase() === selected.toLowerCase()
+        employmentType.toLowerCase() === selected.toLowerCase() ||
+        companyLogo.toLowerCase()== selected.toLowerCase() ||
+        companyName.toLowerCase()==selected.toLowerCase() ||
+        maxPrice.toLowerCase()== selected.toLowerCase() ||
+        postingDate.toLowerCase()==selected.toLowerCase()||
+        description.toLowerCase()== selected.toLowerCase()
       );
     }
 
@@ -64,8 +70,15 @@ const Home = () => {
       {/* Main content */}
 
     <div className='bg-gray-300 md:grid grid-cols-4 gap-8 lg:px-24 px-4 py-12'>
-      <div></div>
+      {/* left side */}
+      <div>
+        <Slidebar handlechange={handlechange} handleclick={handleclick}/>
+      </div>
+
+      {/* center part */}
       <div className='col-span-2 p-4 rounded-sm'><Jobs result={result} /></div>
+
+      {/* right side */}
       <div></div>
     </div>
 
