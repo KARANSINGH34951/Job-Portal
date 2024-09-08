@@ -1,33 +1,76 @@
 import { useEffect, useState } from 'react';
 import Banners from '../Components/Banners'
+import Cards from '../Components/Cards';
+import Jobs from './Jobs';
 
 const Home = () => {
-  const [selectedCategory,setselectedCategory]=useState(null);
-  const [jobs,setjobs]=useState([]);
+  const [selectedCategory, setSelectedCategory] = useState(null);
+  const [jobs, setJobs] = useState([]);
   const [query, setQuery] = useState("");
 
-  useEffect(()=>{
-    fetch("jobs.json").then(res=> res.json()).then(data=> {
-      
-      setjobs(data)
-    })
-  },[])
-// console.log(job);
+  useEffect(() => {
+    fetch("jobs.json").then(res => res.json()).then(data => {
+      setJobs(data);
+    });
+  }, []);
 
-  const filtereditem=jobs.filter((job)=>job.jobTitle.toLowerCase().indexOf(query.toLowerCase())!==-1);
+  const filtereditem = jobs.filter((job) =>
+    job.jobTitle.toLowerCase().indexOf(query.toLowerCase()) !== -1
+  );
   
-  console.log(filtereditem);
-    
   const handleQueryChange = (e) => {
     setQuery(e.target.value);
-    console.log(e.target.value); 
   };
-  console.log(query);
+
+  const handlechange = (event) => {
+    setSelectedCategory(event.target.value);
+  }
+
+  const handleclick = (event) => {
+    setSelectedCategory(event.target.value);
+  }
+
+  const filteredData = (jobs, selected, query) => {
+    let filterJobs = jobs;
+
+    // Filtering by query (search input)
+    if (query) {
+      filterJobs = filtereditem;
+    }
+
+    // Filtering by category
+    if (selected) {
+      filterJobs = filterJobs.filter(({ jobLocation, maxPrice, experienceLevel, salaryType, employmentType }) =>
+        jobLocation.toLowerCase() === selected.toLowerCase() ||
+        parseInt(maxPrice) === parseInt(selected) ||
+        experienceLevel.toLowerCase() === selected.toLowerCase() ||
+        employmentType.toLowerCase() === selected.toLowerCase()
+      );
+    }
+
+    // Return JSX for filtered jobs
+    return filterJobs.map((data, index) => (
+      
+        <Cards key={index} data={data} />
+     
+    ));
+  }
+
+  const result = filteredData(jobs, selectedCategory, query);
+
   return (
     <div className='text-primary'>
-      <Banners query={query} handleQueryChange={handleQueryChange}/>
+      <Banners query={query} handleQueryChange={handleQueryChange} />
+      {/* Main content */}
+
+    <div className='bg-gray-300 md:grid grid-cols-4 gap-8 lg:px-24 px-4 py-12'>
+      <div></div>
+      <div className='col-span-2 p-4 rounded-sm'><Jobs result={result} /></div>
+      <div></div>
     </div>
-  )
+
+    </div>
+  );
 }
 
-export default Home
+export default Home;
