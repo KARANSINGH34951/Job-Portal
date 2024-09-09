@@ -4,6 +4,7 @@ import Cards from '../Components/Cards';
 import Jobs from './Jobs';
 import Slidebar from '../Components/Slidebar';
 import { FaSlash } from 'react-icons/fa';
+import Newsletter from '../Components/Newsletter';
 
 const Home = () => {
   const [selectedCategory, setSelectedCategory] = useState(null);
@@ -83,8 +84,9 @@ const Home = () => {
         companyLogo.toLowerCase()== selected.toLowerCase() ||
         companyName.toLowerCase()==selected.toLowerCase() ||
         maxPrice.toLowerCase()== selected.toLowerCase() ||
-        postingDate.toLowerCase()==selected.toLowerCase()||
-        description.toLowerCase()== selected.toLowerCase()
+        // postingDate.toLowerCase()==selected.toLowerCase()||
+        description.toLowerCase()== selected.toLowerCase() ||
+        postingDate >= selected 
       );
     }
 
@@ -137,7 +139,9 @@ const Home = () => {
       
 
       {/* right side */}
-      <div></div>
+      <div>
+        <Newsletter/>
+      </div>
     </div>
 
     </div>
