@@ -20,7 +20,7 @@
       "companyLogo": "/images/Notion.png",
       "minPrice": "40",
       "maxPrice": "50",
-      "salaryType": "Yearly",
+      "salaryType": "Monthly",
       "jobLocation": "San Francisco",
       "postingDate": "2023-11-02",
       "experienceLevel": "Internship",
