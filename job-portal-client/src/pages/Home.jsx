@@ -90,7 +90,7 @@ const Home = () => {
       );
     }
 
-    // Return JSX for filtered jobs
+    // return JSX for filtered jobs
     //slice the data based on current page
     const {startIndex,endIndex}= caculatepageRange();
     filterJobs = filterJobs.slice(startIndex,endIndex);
